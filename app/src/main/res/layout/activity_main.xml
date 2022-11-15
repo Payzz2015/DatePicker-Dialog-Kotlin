@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center">
+
+
+
+    <Button
+        android:id="@+id/main_show_dialog_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_centerInParent="true"
+        android:textColor="@android:color/white"
+        android:background="@android:color/black"
+        android:text="Open Dialog"
+    />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/date_picker_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_centerInParent="true"
+        android:textColor="@android:color/white"
+        android:background="@android:color/black"
+        android:text="Date Picker"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialogText"
+        android:text="Dialog"
+        android:gravity="center"
+        android:textSize="32dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateText"
+        android:text="Date"
+        android:gravity="center"
+        android:textSize="32dp"/>
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorSurface</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+
+        <item name="colorOnSurface">@color/colorSurface</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="materialCalendarHeaderTitle">@style/Header_Hide</item>
+        <item name="materialCalendarHeaderSelection">@style/Header_Hide</item>
+        <item name="materialCalendarHeaderToggleButton">@style/Header_Hide</item>
+        <item name="materialCalendarHeaderLayout">@style/Header_Hide</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="materialCalendarDay">@style/Widget.App.MaterialCalendar.DayTextView</item>
+    </style>
+
+    <style name="Header_Hide" parent="@style/Widget.MaterialComponents.MaterialCalendar.HeaderTitle">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="Widget.App.MaterialCalendar.DayTextView" parent="Widget.MaterialComponents.MaterialCalendar.DayTextView">
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+
+</resources>

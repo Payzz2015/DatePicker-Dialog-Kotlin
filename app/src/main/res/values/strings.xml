@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WheelView</string>
+
+    <color name="colorPrimary">#66c3cd</color>
+    <color name="colorPrimaryDark">#A5A5A5</color>
+    <color name="colorSecondary">#66c3cd</color>
+    <color name="colorSurface">#45BFCC</color>
+</resources>
