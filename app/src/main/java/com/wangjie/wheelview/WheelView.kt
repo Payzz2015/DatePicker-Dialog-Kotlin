@@ -16,7 +16,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.wangjie.wheelview.sample.MainActivity
+import android.graphics.RectF
+
+
+
 
 
 class WheelView(context: Context, attrs: AttributeSet?) : ScrollView(context, attrs) {
@@ -179,7 +184,7 @@ class WheelView(context: Context, attrs: AttributeSet?) : ScrollView(context, at
             val itemView = views!!.getChildAt(i) as TextView
             if (position == i) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    itemView.setTextColor(Color.parseColor("#5ebcc7"))
+                    itemView.setTextColor(Color.parseColor("#000000"))
                 }
             } else {
                 itemView.setTextColor(Color.parseColor("#000000"))
@@ -192,7 +197,7 @@ class WheelView(context: Context, attrs: AttributeSet?) : ScrollView(context, at
             selectedAreaBorder = IntArray(3)
             selectedAreaBorder!![0] = itemHeight * offset
             selectedAreaBorder!![1] = itemHeight * (offset + 1)
-            selectedAreaBorder!![2] = itemHeight * (offset + 3)
+            selectedAreaBorder!![2] = itemHeight * (offset + 2)
         }
         return selectedAreaBorder!!
     }
@@ -204,29 +209,34 @@ class WheelView(context: Context, attrs: AttributeSet?) : ScrollView(context, at
         if (null == paint) {
             paint = Paint()
             paint!!.color = Color.parseColor("#5ebcc7")
-            paint!!.strokeWidth = dip2px(2f).toFloat()
+            paint!!.strokeWidth = dip2px(3f).toFloat()
+            paint!!.isAntiAlias = true
+            paint!!.style = Paint.Style.STROKE
+
+        }
+        if (null == end) {
             end = Paint()
             end!!.color = Color.parseColor("#bbbbbb")
             end!!.strokeWidth = dip2px(1f).toFloat()
         }
         val background = object : Drawable() {
             override fun draw(canvas: Canvas) {
-                canvas.drawLine(
-                    (viewWidth / 6).toFloat(),
-                    obtainSelectedAreaBorder()[0].toFloat(), (viewWidth * 5 / 6).toFloat(),
+                /*canvas.drawOval(
+                    (viewWidth / 15).toFloat(),
+                    , ,
+                    ,
+                    paint!!
+                )*/
+                canvas.drawRoundRect(RectF(
+                    (viewWidth / 15).toFloat(),
                     obtainSelectedAreaBorder()[0].toFloat(),
-                    paint!!
-                )
-                canvas.drawLine(
-                    (viewWidth / 6).toFloat(),
-                    obtainSelectedAreaBorder()[1].toFloat(), (viewWidth * 5 / 6).toFloat(),
-                    obtainSelectedAreaBorder()[1].toFloat(),
-                    paint!!
-                )
+                    (viewWidth * 14 / 15).toFloat(),
+                    obtainSelectedAreaBorder()[1].toFloat()),
+                    100f, 125f, paint!!)
 
                 canvas.drawLine(
-                    (viewWidth / 6).toFloat(),
-                    obtainSelectedAreaBorder()[2].toFloat(), (viewWidth * 5 / 6).toFloat(),
+                    (viewWidth / 15).toFloat(),
+                    obtainSelectedAreaBorder()[2].toFloat(), (viewWidth * 14 / 15).toFloat(),
                     obtainSelectedAreaBorder()[2].toFloat(),
                     end!!
                 )

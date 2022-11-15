@@ -69,16 +69,15 @@ class MainActivity:AppCompatActivity(), View.OnClickListener {
             R.id.main_show_dialog_btn -> {
                 val outerView = LayoutInflater.from(this).inflate(R.layout.wheel_view, null)
                 val wv = outerView.findViewById(R.id.wheel_view_wv) as WheelView
-                wv.offset = 3
+                wv.offset = 2
                 wv.setItems(PLANETS)
                 wv.setSelection(0)
 
                 //builder
-                val builder = AlertDialog.Builder(this)
+                val builder = AlertDialog.Builder(this, R.style.RoundedCornerDialog)
                 builder.setView(outerView)
 
                 val dialog = builder.create()
-                dialog.setCanceledOnTouchOutside(false)
 
 
                 wv.onWheelViewListener = object :WheelView.OnWheelViewListener() {
@@ -88,8 +87,8 @@ class MainActivity:AppCompatActivity(), View.OnClickListener {
 
 
                     override fun onClickItem(index: Int, item: String?) {
-                         Log.d(TAG, "index: ${index-3}, item: $item")
-                         dialogText.text = "Index is ${index-3} " + "Text is $item"
+                         Log.d(TAG, "index: ${index-wv.offset}, item: $item")
+                         dialogText.text = "Index is ${index-wv.offset} " + "Text is $item"
                          dialog.dismiss()
                     }
                 }
