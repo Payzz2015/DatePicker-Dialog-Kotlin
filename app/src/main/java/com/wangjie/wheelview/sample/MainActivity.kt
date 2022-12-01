@@ -15,13 +15,10 @@ import com.wangjie.wheelview.WheelView
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import android.R.attr.action
-import android.widget.AdapterView
-
-import android.preference.PreferenceManager
-
-import android.content.SharedPreferences
-import android.widget.AdapterView.OnItemSelectedListener
+import android.content.Context
+import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
+import com.google.android.material.datepicker.CalendarConstraints
 
 
 class MainActivity:AppCompatActivity(), View.OnClickListener {
@@ -47,20 +44,50 @@ class MainActivity:AppCompatActivity(), View.OnClickListener {
         dateText = findViewById(R.id.dateText)
         dialogText = findViewById(R.id.dialogText)
 
-        val builder : MaterialDatePicker.Builder<*> = MaterialDatePicker.Builder.datePicker()
+        var mSelectedDate: Long = MaterialDatePicker.thisMonthInUtcMilliseconds()
+        fun Context.showDatePickerDialogWithMaximumDateThemeNew() {
+            val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            val today = MaterialDatePicker.todayInUtcMilliseconds()
+            cal.timeInMillis = today
+            cal.set(cal[Calendar.YEAR] - 80, cal[Calendar.MONTH], cal[Calendar.DATE])
+            val yearsBack = cal.timeInMillis
+            cal.timeInMillis = today
+            cal.set(cal[Calendar.YEAR] - 0, cal[Calendar.MONTH], cal[Calendar.DATE])
+            val yearsAhead = cal.timeInMillis
 
-        val picker : MaterialDatePicker<*> =
+
+            var builder: MaterialDatePicker.Builder<Long>  = MaterialDatePicker.Builder.datePicker()
             builder
                 .setTheme(R.style.MaterialCalendarTheme)
-                .build()
-        findViewById<Button>(R.id.date_picker_btn).setOnClickListener{
-            picker.show(supportFragmentManager, picker.toString())
+                .setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
+                .setSelection(mSelectedDate)
+                .setCalendarConstraints(
+                    CalendarConstraints.Builder()
+                        .setStart(yearsBack)
+                        .setEnd(yearsAhead)
+                        .setOpenAt(mSelectedDate)
+                        .build()
+                )
+            val materialDatePicker: MaterialDatePicker<Long> = builder.build()
+
+            materialDatePicker.show((this as FragmentActivity).supportFragmentManager, materialDatePicker.toString())
+
+            materialDatePicker.addOnPositiveButtonClickListener {
+                mSelectedDate = it
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                val selectedDate = sdf.format(it)
+
+
+
+
+        Toast.makeText(
+            this, selectedDate.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
+            }
         }
-
-
-        picker.addOnPositiveButtonClickListener {
-            val selectedDate = dateFormat.format(it)
-            dateText.text = "$selectedDate"
+        findViewById<Button>(R.id.date_picker_btn).setOnClickListener{
+            showDatePickerDialogWithMaximumDateThemeNew()
         }
     }
 
